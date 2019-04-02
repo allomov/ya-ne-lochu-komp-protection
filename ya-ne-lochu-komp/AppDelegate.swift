@@ -14,6 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
     let mainWindowController = NSWindowController()
     let keylogger = Keylogger()
+    var keysPressedCount = 0
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -22,14 +23,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.action = #selector(printQuote(_:))
         }
         constructMenu()
+        keysPressedCount = -1
+        registerPressKeyboardObserver()
         keylogger.start()
-//        popover.contentViewController = ScreamerViewController.freshController()
+
+        //        popover.contentViewController = ScreamerViewController.freshController()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
 
+    func pressKeyboardCallback() {
+        print("keysPressedCount")
+        print(keysPressedCount)
+        if (keysPressedCount > 5) {
+//            scream()
+        }
+        keysPressedCount = keysPressedCount + 1;
+    }
+
+    func scream() {
+        print("AAAAA")
+    }
+    
     @objc func printQuote(_ sender: Any?) {
 //        mainWindowController = self.storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("mainWindowController"))
 //            as! NSViewController
@@ -49,6 +66,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menu.addItem(NSMenuItem(title: "Quit Quotes", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         
         statusItem.menu = menu
+    }
+
+    func registerPressKeyboardObserver() {
+        let observer = UnsafeMutableRawPointer(Unmanaged.passUnretained(self).toOpaque())
+        IOHIDManagerRegisterInputValueCallback(keylogger.manager, {
+            (context, _, _, _) -> Void in
+            if let observerToConvert = context {
+                let mySelf = Unmanaged<AppDelegate>.fromOpaque(observerToConvert).takeUnretainedValue()
+                mySelf.pressKeyboardCallback()
+            }
+        }, observer);
     }
 }
 

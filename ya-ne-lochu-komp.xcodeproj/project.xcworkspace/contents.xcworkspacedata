@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:ya-ne-lochu-komp.xcodeproj">
+      location = "group:/Users/allomov/work/cybergizer/internal/ya-ne-lochu-komp-prank/ya-ne-lochu-komp/ya-ne-lochu-komp/scream.mp3">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

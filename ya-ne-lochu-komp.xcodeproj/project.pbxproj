@@ -7,16 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D33240962254084300BDCBAC /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33240942254084300BDCBAC /* WindowController.swift */; };
+		D33240972254084300BDCBAC /* WindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D33240952254084300BDCBAC /* WindowController.xib */; };
+		D332409F2254C54700BDCBAC /* scream.wav in Resources */ = {isa = PBXBuildFile; fileRef = D332409E2254C54700BDCBAC /* scream.wav */; };
 		D3A7B8062250FC42004B234A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B8052250FC42004B234A /* AppDelegate.swift */; };
 		D3A7B8082250FC42004B234A /* ScreamerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B8072250FC42004B234A /* ScreamerViewController.swift */; };
 		D3A7B80A2250FC43004B234A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3A7B8092250FC43004B234A /* Assets.xcassets */; };
 		D3A7B80D2250FC43004B234A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3A7B80B2250FC43004B234A /* Main.storyboard */; };
-		D3A7B816225166C2004B234A /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B815225166C2004B234A /* WindowController.swift */; };
 		D3A7B81C22522C86004B234A /* Keylogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B81B22522C86004B234A /* Keylogger.swift */; };
 		D3A7B81E22527E1F004B234A /* CallbackFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A7B81D22527E1F004B234A /* CallbackFunctions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D33240942254084300BDCBAC /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		D33240952254084300BDCBAC /* WindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WindowController.xib; sourceTree = "<group>"; };
+		D332409D2254C27100BDCBAC /* scream.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = scream.mp3; path = "/Users/allomov/work/cybergizer/internal/ya-ne-lochu-komp-prank/ya-ne-lochu-komp/ya-ne-lochu-komp/scream.mp3"; sourceTree = "<absolute>"; };
+		D332409E2254C54700BDCBAC /* scream.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = scream.wav; sourceTree = "<group>"; };
 		D3A7B8022250FC42004B234A /* ya-ne-lochu-komp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ya-ne-lochu-komp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3A7B8052250FC42004B234A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3A7B8072250FC42004B234A /* ScreamerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreamerViewController.swift; sourceTree = "<group>"; };
@@ -24,7 +30,6 @@
 		D3A7B80C2250FC43004B234A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D3A7B80E2250FC43004B234A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3A7B80F2250FC43004B234A /* ya_ne_lochu_komp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ya_ne_lochu_komp.entitlements; sourceTree = "<group>"; };
-		D3A7B815225166C2004B234A /* WindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		D3A7B81B22522C86004B234A /* Keylogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keylogger.swift; sourceTree = "<group>"; };
 		D3A7B81D22527E1F004B234A /* CallbackFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallbackFunctions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,11 +64,14 @@
 		D3A7B8042250FC42004B234A /* ya-ne-lochu-komp */ = {
 			isa = PBXGroup;
 			children = (
-				D3A7B815225166C2004B234A /* WindowController.swift */,
+				D332409D2254C27100BDCBAC /* scream.mp3 */,
+				D332409E2254C54700BDCBAC /* scream.wav */,
+				D33240942254084300BDCBAC /* WindowController.swift */,
 				D3A7B8052250FC42004B234A /* AppDelegate.swift */,
 				D3A7B8072250FC42004B234A /* ScreamerViewController.swift */,
 				D3A7B8092250FC43004B234A /* Assets.xcassets */,
 				D3A7B80B2250FC43004B234A /* Main.storyboard */,
+				D33240952254084300BDCBAC /* WindowController.xib */,
 				D3A7B80E2250FC43004B234A /* Info.plist */,
 				D3A7B80F2250FC43004B234A /* ya_ne_lochu_komp.entitlements */,
 				D3A7B81B22522C86004B234A /* Keylogger.swift */,
@@ -137,6 +145,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A7B80A2250FC43004B234A /* Assets.xcassets in Resources */,
+				D332409F2254C54700BDCBAC /* scream.wav in Resources */,
+				D33240972254084300BDCBAC /* WindowController.xib in Resources */,
 				D3A7B80D2250FC43004B234A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,7 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A7B8082250FC42004B234A /* ScreamerViewController.swift in Sources */,
-				D3A7B816225166C2004B234A /* WindowController.swift in Sources */,
+				D33240962254084300BDCBAC /* WindowController.swift in Sources */,
 				D3A7B8062250FC42004B234A /* AppDelegate.swift in Sources */,
 				D3A7B81E22527E1F004B234A /* CallbackFunctions.swift in Sources */,
 				D3A7B81C22522C86004B234A /* Keylogger.swift in Sources */,

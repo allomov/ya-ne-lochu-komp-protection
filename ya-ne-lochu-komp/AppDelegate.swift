@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import AVFoundation
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -15,15 +16,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let mainWindowController = NSWindowController()
     let keylogger = Keylogger()
     var keysPressedCount = 0
+    var screaming = false
+    let newWindowController = WindowController()
+    var player:AVAudioPlayer?
+
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if let button = statusItem.button {
             button.image = NSImage(named:NSImage.Name("StatusBarButtonImage"))
-            button.action = #selector(printQuote(_:))
         }
         constructMenu()
-        keysPressedCount = -1
         registerPressKeyboardObserver()
         keylogger.start()
 
@@ -37,33 +40,44 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func pressKeyboardCallback() {
         print("keysPressedCount")
         print(keysPressedCount)
-        if (keysPressedCount > 5) {
-//            scream()
+        // for some reason the callback is called 8 times per key press
+        if (keysPressedCount > 12 * 8 && !screaming) {
+            scream()
         }
         keysPressedCount = keysPressedCount + 1;
     }
 
-    func scream() {
-        print("AAAAA")
+
+    func playSound() {
+        let url = Bundle.main.url(forResource: "scream", withExtension: "wav")!
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.prepareToPlay()
+            player?.play()
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
-    
-    @objc func printQuote(_ sender: Any?) {
-//        mainWindowController = self.storyboard?.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("mainWindowController"))
-//            as! NSViewController
-//        self.view.window?.contentViewController = vcStores
+
+    func scream() {
+        screaming = true
         
-//        let quoteText = "Never put off until tomorrow what you can do the day after tomorrow."
-//        let quoteAuthor = "Mark Twain"
-//
-//        print("\(quoteText) — \(quoteAuthor)")
+        playSound()
+        
+        newWindowController.showWindow(nil)
+        newWindowController.window?.orderFrontRegardless()
+        
+        print("AAAAA-AAAAA-AAAAAAAAAAAAAAA")
+
+        keysPressedCount = 0
+        screaming = false
     }
 
     func constructMenu() {
         let menu = NSMenu()
-        
-        menu.addItem(NSMenuItem(title: "Print Quote", action: #selector(AppDelegate.printQuote(_:)), keyEquivalent: "P"))
+
         menu.addItem(NSMenuItem.separator())
-        menu.addItem(NSMenuItem(title: "Quit Quotes", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+        menu.addItem(NSMenuItem(title: "Quit Screamer", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
         
         statusItem.menu = menu
     }
